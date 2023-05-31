@@ -3,6 +3,7 @@ package com.hyj.demo.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,10 +14,10 @@ import java.util.Date;
  * @date 2023-05-30 17:26:20
  */
 @Data
-@ApiModel("nas_info")
+@ApiModel("NasInfoDTO")
 public class NasInfoDTO {
 
-    @ApiModelProperty("主键")
+    @ApiModelProperty(value = "主键",hidden = true)
     private Long id;
 
     @ApiModelProperty("路径")
@@ -32,12 +33,14 @@ public class NasInfoDTO {
     private BigDecimal narsAvail;
 
     @ApiModelProperty("创建时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty("创建人")
     private String createBy;
 
     @ApiModelProperty("更新时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @ApiModelProperty("更新人")

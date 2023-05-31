@@ -1,5 +1,9 @@
 package com.hyj.demo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,6 +15,7 @@ import java.util.Date;
  * @date 2023-05-30 17:12:41
  */
 @Data
+@TableName("sys_user")
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -18,6 +23,7 @@ public class SysUser implements Serializable {
     /**
      * 主键
      */
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
 
     /**
@@ -58,6 +64,7 @@ public class SysUser implements Serializable {
     /**
      * 所属组
      */
+    @TableField("user_group")
     private String group;
 
     public SysUser() {

@@ -23,7 +23,10 @@ public enum Status {
      *用户信息失效,请重新登录
      */
     BIZ_ERROR(9999,"业务异常"),
-
+    /**
+     * 入参错误
+     */
+    ENTITY_NOT_EXISTS(1001, "记录不存在"),
     ;
     /**
      * 状态码

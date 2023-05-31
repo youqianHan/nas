@@ -1,5 +1,6 @@
 package com.hyj.demo.mapper;
 
+import com.github.yulichang.base.MPJBaseMapper;
 import com.hyj.demo.entity.NasInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import java.util.Map;
  */
 @Mapper
 @Repository
-public interface NasInfoMapper {
+public interface NasInfoMapper extends MPJBaseMapper<NasInfo> {
 
     /**
      * 新增

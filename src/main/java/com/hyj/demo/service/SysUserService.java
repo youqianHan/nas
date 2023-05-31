@@ -1,7 +1,11 @@
 package com.hyj.demo.service;
 
+import com.hyj.demo.bo.AddSysUserBO;
+import com.hyj.demo.bo.UpdateSysUserBO;
 import com.hyj.demo.common.RestResponse;
+import com.hyj.demo.dto.SysUserDTO;
 import com.hyj.demo.entity.SysUser;
+import com.hyj.demo.vo.SysUserVO;
 
 import java.util.Map;
 
@@ -15,7 +19,7 @@ public interface SysUserService {
     /**
      * 新增
      */
-    public RestResponse<String> insert(SysUser sysUser);
+    public RestResponse<String> insert(AddSysUserBO addSysUserBO);
 
     /**
      * 删除
@@ -25,12 +29,12 @@ public interface SysUserService {
     /**
      * 更新
      */
-    public RestResponse<String> update(SysUser sysUser);
+    public RestResponse<String> update(UpdateSysUserBO updateSysUserBO);
 
     /**
      * 根据主键 id 查询
      */
-    public SysUser load(int id);
+    public SysUserVO load(int id);
 
     /**
      * 分页查询

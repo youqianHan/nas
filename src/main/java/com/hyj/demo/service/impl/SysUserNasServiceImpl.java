@@ -1,4 +1,52 @@
 package com.hyj.demo.service.impl;
 
-public class SysUserNasServiceImpl {
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hyj.demo.common.RestResponse;
+import com.hyj.demo.common.enums.Status;
+import com.hyj.demo.dto.SysUserNasDTO;
+import com.hyj.demo.entity.SysUserNas;
+import com.hyj.demo.mapper.SysUserNasMapper;
+import com.hyj.demo.service.SysUserNasService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Map;
+
+@Service
+@RequiredArgsConstructor
+public class SysUserNasServiceImpl  extends ServiceImpl<SysUserNasMapper, SysUserNas> implements SysUserNasService {
+    @Override
+    public RestResponse<String> insert(SysUserNasDTO sysUserNasDTO) {
+        SysUserNas sysUserNas = new SysUserNas();
+        BeanUtil.copyProperties(sysUserNasDTO,sysUserNas, CopyOptions.create().ignoreNullValue());
+        this.save(sysUserNas);
+        return RestResponse.success();
+    }
+
+    @Override
+    public RestResponse<String> delete(int id) {
+        return null;
+    }
+
+    @Override
+    public RestResponse<String> update(SysUserNasDTO sysUserNasDTO) {
+        SysUserNas sysUserNas = new SysUserNas();
+        BeanUtil.copyProperties(sysUserNasDTO,sysUserNas, CopyOptions.create().ignoreNullValue());
+        boolean b = updateById(sysUserNas);
+        Assert.isTrue(b, Status.ENTITY_NOT_EXISTS.getMessage());
+        return RestResponse.success();
+    }
+
+    @Override
+    public SysUserNas load(int id) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> pageList(int offset, int pagesize) {
+        return null;
+    }
 }

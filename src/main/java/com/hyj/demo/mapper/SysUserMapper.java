@@ -1,5 +1,6 @@
 package com.hyj.demo.mapper;
 
+import com.github.yulichang.base.MPJBaseMapper;
 import com.hyj.demo.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import java.util.Map;
  */
 @Mapper
 @Repository
-public interface SysUserMapper {
+public interface SysUserMapper extends MPJBaseMapper<SysUser> {
 
     /**
      * 新增

@@ -1,5 +1,5 @@
 monitor: # 监控的目录列表，逗号分隔
-  directories: /data/log
+  directories: /data
 #    - /data/log
 #    - /data/
   threshold: # 目录空间阀值，单位为字节（bytes）

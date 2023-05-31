@@ -3,6 +3,7 @@ package com.hyj.demo.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
 @ApiModel("sys_user")
 public class SysUserDTO {
 
-    @ApiModelProperty("主键")
+    @ApiModelProperty(value = "主键",hidden = true)
     private Long id;
 
     @ApiModelProperty("soeid工号")
@@ -28,9 +29,11 @@ public class SysUserDTO {
     private String email;
 
     @ApiModelProperty("创建时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty("更新时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @ApiModelProperty("创建人")

@@ -15,7 +15,7 @@ import java.util.Date;
 @ApiModel("SysUserNasDTO")
 public class SysUserNasDTO {
 
-    @ApiModelProperty("主键")
+    @ApiModelProperty(value = "主键",hidden = true)
     private Long id;
 
     @ApiModelProperty("用户id")
