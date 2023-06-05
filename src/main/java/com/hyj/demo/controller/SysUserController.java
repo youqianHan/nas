@@ -1,6 +1,9 @@
 package com.hyj.demo.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hyj.demo.bo.AddSysUserBO;
+import com.hyj.demo.bo.QuerySysUserBO;
 import com.hyj.demo.bo.UpdateSysUserBO;
 import com.hyj.demo.common.RestResponse;
 import com.hyj.demo.dto.SysUserDTO;
@@ -25,7 +28,14 @@ public class SysUserController {
     public RestResponse<SysUserVO> find(int id){
         return RestResponse.success(sysUserService.load(id));
     }
-
+    /**
+     * 查询
+     */
+    @ApiOperation("分页查询用户")
+    @PostMapping("/findByPage")
+    public RestResponse<IPage<SysUserVO>> findByPage(@RequestBody QuerySysUserBO querySysUserBO){
+        return RestResponse.success(sysUserService.getUserPage(querySysUserBO));
+    }
     /**
      * 新增
      */

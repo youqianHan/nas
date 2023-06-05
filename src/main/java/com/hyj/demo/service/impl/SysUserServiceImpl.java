@@ -3,8 +3,12 @@ package com.hyj.demo.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.lang.Assert;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hyj.demo.bo.AddSysUserBO;
+import com.hyj.demo.bo.QuerySysUserBO;
 import com.hyj.demo.bo.UpdateSysUserBO;
 import com.hyj.demo.common.RestResponse;
 import com.hyj.demo.common.enums.Status;
@@ -16,6 +20,7 @@ import com.hyj.demo.vo.SysUserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -58,6 +63,18 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
     @Override
     public Map<String, Object> pageList(int offset, int pagesize) {
         return null;
+    }
+
+
+    @Override
+    public IPage<SysUserVO> getUserPage(QuerySysUserBO querySysUserBO) {
+        Page<SysUser> page = new Page<>(querySysUserBO.getPageNo(), querySysUserBO.getPageSize());
+        SysUser sysUser = new SysUser();
+        BeanUtil.copyProperties(querySysUserBO,sysUser,CopyOptions.create().ignoreNullValue());
+        Page<SysUser> iPage = this.page(page, new LambdaQueryWrapper<SysUser>(sysUser));
+        IPage<SysUserVO> sysUserVOIPage = new Page<>();
+        BeanUtil.copyProperties(iPage,sysUserVOIPage);
+        return sysUserVOIPage;
     }
 
 

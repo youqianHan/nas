@@ -155,5 +155,10 @@
         FROM sys_user
         <include refid="sys_user_Where_List" />
     </select>
+    <select id="selectUserPage" resultType="com.hyj.demo.entity.SysUser">
+        SELECT <include refid="Base_Column_List" />
+        FROM sys_user
+        <include refid="sys_user_Where_List" />
+    </select>
 
 </mapper>

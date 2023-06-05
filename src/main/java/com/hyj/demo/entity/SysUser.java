@@ -64,8 +64,7 @@ public class SysUser implements Serializable {
     /**
      * 所属组
      */
-    @TableField("user_group")
-    private String group;
+    private String userGroup;
 
     public SysUser() {
     }

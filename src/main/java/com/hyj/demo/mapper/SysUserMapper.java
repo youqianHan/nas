@@ -1,5 +1,7 @@
 package com.hyj.demo.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.yulichang.base.MPJBaseMapper;
 import com.hyj.demo.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
@@ -58,5 +60,9 @@ public interface SysUserMapper extends MPJBaseMapper<SysUser> {
      * @date 2023/05/30
      **/
     int pageListCountSysUser(Map<String,Object> map);
+
+//    Page<SysUser> selectUserPage(Page<SysUser> page);
+
+    IPage<SysUser> selectUserPage(Page<SysUser> page);
 
 }

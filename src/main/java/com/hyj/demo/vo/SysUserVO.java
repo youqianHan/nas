@@ -44,7 +44,7 @@ public class SysUserVO{
     private Date updateBy;
 
     @ApiModelProperty("所属组")
-    private String group;
+    private String userGroup;
 
 
 }

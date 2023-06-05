@@ -19,6 +19,6 @@ public class UpdateSysUserBO extends BaseBO {
     private String email;
 
     @ApiModelProperty("所属组")
-    private String group;
+    private String userGroup;
 
 }

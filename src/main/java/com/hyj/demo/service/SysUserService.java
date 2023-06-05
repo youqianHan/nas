@@ -1,6 +1,8 @@
 package com.hyj.demo.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hyj.demo.bo.AddSysUserBO;
+import com.hyj.demo.bo.QuerySysUserBO;
 import com.hyj.demo.bo.UpdateSysUserBO;
 import com.hyj.demo.common.RestResponse;
 import com.hyj.demo.dto.SysUserDTO;
@@ -40,5 +42,8 @@ public interface SysUserService {
      * 分页查询
      */
     public Map<String,Object> pageList(int offset, int pagesize);
+
+
+    IPage<SysUserVO> getUserPage(QuerySysUserBO querySysUserBO);
 
 }

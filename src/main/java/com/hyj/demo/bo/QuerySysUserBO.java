@@ -7,7 +7,7 @@ import lombok.Data;
 
 @ApiModel("新增用户参数")
 @Data
-public class AddSysUserBO extends BaseBO {
+public class QuerySysUserBO extends BaseBO {
 
     @ApiModelProperty("soeid工号")
     private String soeid;
@@ -19,6 +19,6 @@ public class AddSysUserBO extends BaseBO {
     private String email;
 
     @ApiModelProperty("所属组")
-    private String userGroup;
+    private String group;
 
 }
