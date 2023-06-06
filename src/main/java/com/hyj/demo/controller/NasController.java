@@ -1,16 +1,23 @@
 package com.hyj.demo.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hyj.demo.bo.AddNasInfoBO;
+import com.hyj.demo.bo.QuerySysUserBO;
 import com.hyj.demo.bo.UpdateNasInfoBO;
+import com.hyj.demo.bo.common.QueryNasBO;
 import com.hyj.demo.common.RestResponse;
 import com.hyj.demo.dto.NasInfoDTO;
 import com.hyj.demo.dto.NasInfoDTO;
 import com.hyj.demo.service.NasInfoService;
 import com.hyj.demo.service.SysUserService;
 import com.hyj.demo.vo.NasInfoVO;
+import com.hyj.demo.vo.SysUserVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/nas")
@@ -36,15 +43,24 @@ public class NasController {
     /**
      * 更新
      */
-    @PatchMapping("/update")
+    @PostMapping("/update")
     public RestResponse update(@RequestBody UpdateNasInfoBO updateNasInfoBO){
         return nasInfoService.update(updateNasInfoBO);
     }
     /**
      * 删除
      */
-    @DeleteMapping("/delete/{id}")
-    public RestResponse delete(@PathVariable Integer id){
-        return nasInfoService.delete(id);
+    @PostMapping("/delete")
+    public RestResponse delete(@RequestBody List<Integer> ids){
+        return nasInfoService.delete(ids);
+    }
+
+    /**
+     * 查询
+     */
+    @ApiOperation("分页查询用户")
+    @PostMapping("/findByPage")
+    public RestResponse<IPage<NasInfoVO>> findByPage(@RequestBody QueryNasBO queryNasBO){
+        return RestResponse.success(nasInfoService.getNasPage(queryNasBO));
     }
 }

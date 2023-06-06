@@ -30,7 +30,7 @@ public class SysUserNasController {
     /**
      * 更新
      */
-    @PatchMapping("/update")
+    @PostMapping("/update")
     public RestResponse update(@RequestBody SysUserNasDTO sysUserNasDTO){
         return sysUserNasService.update(sysUserNasDTO);
     }

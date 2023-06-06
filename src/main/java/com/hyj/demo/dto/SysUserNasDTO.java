@@ -19,10 +19,10 @@ public class SysUserNasDTO {
     private Long id;
 
     @ApiModelProperty("用户id")
-    private Integer userId;
+    private Long userId;
 
     @ApiModelProperty("nas盘id")
-    private Integer nasId;
+    private Long nasId;
 
     @ApiModelProperty("更新人")
     private Date createTime;

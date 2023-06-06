@@ -8,7 +8,8 @@ import lombok.Data;
 @ApiModel("更新用户参数")
 @Data
 public class UpdateSysUserBO extends BaseBO {
-
+    @ApiModelProperty("唯一id")
+    private String id;
     @ApiModelProperty("soeid工号")
     private String soeid;
 

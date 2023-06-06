@@ -16,12 +16,15 @@ import com.hyj.demo.dto.SysUserDTO;
 import com.hyj.demo.entity.SysUser;
 import com.hyj.demo.mapper.SysUserMapper;
 import com.hyj.demo.service.SysUserService;
+import com.hyj.demo.vo.SysUserSelectVO;
 import com.hyj.demo.vo.SysUserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +40,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
     }
 
     @Override
-    public RestResponse<String> delete(int id) {
-        int i = sysUserMapper.deleteById(id);
+    public RestResponse<String> delete(List<Integer> ids) {
+        int i = sysUserMapper.deleteBatchIds(ids);
         Assert.isTrue(i>0, Status.ENTITY_NOT_EXISTS.getMessage());
         return RestResponse.success();
     }
@@ -75,6 +78,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         IPage<SysUserVO> sysUserVOIPage = new Page<>();
         BeanUtil.copyProperties(iPage,sysUserVOIPage);
         return sysUserVOIPage;
+    }
+
+    @Override
+    public List<SysUserSelectVO> findUserList() {
+        List<SysUser> userList = this.list();
+        ArrayList<SysUserSelectVO> sysUserSelectVOS = new ArrayList<>();
+        Map<String, List<SysUser>> collect = userList.stream().collect(Collectors.groupingBy(SysUser::getUserGroup));
+        collect.forEach((k,v)->{
+            SysUserSelectVO sysUserSelectVO = new SysUserSelectVO();
+            sysUserSelectVO.setUserGroup(k);
+            sysUserSelectVO.setSysUserVos(BeanUtil.copyToList(v,SysUserVO.class));
+            sysUserSelectVOS.add(sysUserSelectVO);
+        });
+        return sysUserSelectVOS;
     }
 
 

@@ -13,7 +13,7 @@
         <result column="create_by" property="createBy" />
         <result column="update_time" property="updateTime" />
         <result column="update_by" property="updateBy" />
-        <result column="group" property="group" />
+        <result column="user_group" property="userGroup" />
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -26,7 +26,7 @@
                 create_by,
                 update_time,
                 update_by,
-                group
+                user_group
     </sql>
     <sql id="nas_info_Where_List">
         <where>
@@ -57,8 +57,8 @@
             <if test ='null != updateBy and updateBy!= "" '>
                 AND  update_by like CONCAT('%',#{updateBy},'%')
             </if>
-            <if test ='null != group and group!= "" '>
-                AND  group like CONCAT('%',#{group},'%')
+            <if test ='null != user_group and user_group!= "" '>
+                AND  user_group like CONCAT('%',#{user_group},'%')
             </if>
         </where>
     </sql>
@@ -89,8 +89,8 @@
             <if test ='null != updateBy and updateBy!= "" '>
                 update_by,
             </if>
-            <if test ='null != group and group!= "" '>
-                group
+            <if test ='null != user_group and user_group!= "" '>
+                user_group
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -118,8 +118,8 @@
             <if test ='null != updateBy and updateBy!="" '>
                 #{updateBy},
             </if>
-            <if test ='null != group and group!="" '>
-                #{group}
+            <if test ='null != user_group and user_group!="" '>
+                #{user_group}
             </if>
         </trim>
     </insert>
@@ -140,7 +140,7 @@
             <if test ='null != createBy and  createBy!="" '>create_by = #{createBy},</if>
             <if test ='null != updateTime and  updateTime!="" '>update_time = #{updateTime},</if>
             <if test ='null != updateBy and  updateBy!="" '>update_by = #{updateBy},</if>
-            <if test ='null != group and  group!="" '>group = #{group}</if>
+            <if test ='null != user_group and  user_group!="" '>user_group = #{user_group}</if>
         </set>
         WHERE id = #{id}
     </update>

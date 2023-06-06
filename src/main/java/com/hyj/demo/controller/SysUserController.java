@@ -8,11 +8,14 @@ import com.hyj.demo.bo.UpdateSysUserBO;
 import com.hyj.demo.common.RestResponse;
 import com.hyj.demo.dto.SysUserDTO;
 import com.hyj.demo.service.SysUserService;
+import com.hyj.demo.vo.SysUserSelectVO;
 import com.hyj.demo.vo.SysUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -48,7 +51,7 @@ public class SysUserController {
      * 更新
      */
     @ApiOperation("更新用户信息")
-    @PatchMapping("/update")
+    @PostMapping("/update")
     public RestResponse update(@RequestBody UpdateSysUserBO updateSysUserBO){
         return sysUserService.update(updateSysUserBO);
     }
@@ -56,8 +59,18 @@ public class SysUserController {
      * 删除
      */
     @ApiOperation("根据id删除用户")
-    @DeleteMapping("/delete/{id}")
-    public RestResponse delete(@PathVariable Integer id){
-        return sysUserService.delete(id);
+    @PostMapping("/delete")
+    public RestResponse delete(@RequestBody List<Integer> ids){
+        return sysUserService.delete(ids);
+    }
+
+
+    /**
+     * 查询
+     */
+    @ApiOperation("分组查询用户")
+    @PostMapping("/findUserList")
+    public RestResponse<List<SysUserSelectVO>> findUserList(){
+        return RestResponse.success(sysUserService.findUserList());
     }
 }

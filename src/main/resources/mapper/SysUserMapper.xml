@@ -12,7 +12,7 @@
         <result column="update_time" property="updateTime" />
         <result column="create_by" property="createBy" />
         <result column="update_by" property="updateBy" />
-        <result column="user_group" property="group" />
+        <result column="user_group" property="userGroup" />
     </resultMap>
 
     <sql id="Base_Column_List">

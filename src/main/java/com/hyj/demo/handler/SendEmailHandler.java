@@ -1,5 +1,6 @@
 package com.hyj.demo.handler;
 
+import com.hyj.demo.common.entity.EmailInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -13,16 +14,15 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class SendEmailHandler implements EmailHandler{
-    @Value("${monitor.directories}")
-    private List<String> directories;
 
     @Value("${monitor.threshold.size}")
     private long thresholdSize;
-
+    @Value("${spring.mail.username}")
+    private String username;
     private final JavaMailSender mailSender;
 
     @Override
-    public void handler(String directoryPath, long directorySize) {
+    public void handler(String directoryPath, long directorySize, EmailInfo emailInfo) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
         List<String> exceedingFiles = new ArrayList<>();
@@ -38,8 +38,9 @@ public class SendEmailHandler implements EmailHandler{
         }
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("1360921711@qq.com");
-        message.setSubject("目录空间使用超过阀值");
+        message.setFrom(username);
+        message.setTo(emailInfo.getEmailAddress());
+        message.setSubject(emailInfo.getSubject());
         message.setText("目录 " + directoryPath + " 的空间使用超过阀值，当前大小为: " + directorySize + " bytes\n" +
                 "超过阀值的文件列表:\n" + String.join("\n", exceedingFiles));
 

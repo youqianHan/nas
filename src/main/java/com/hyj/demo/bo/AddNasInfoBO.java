@@ -23,5 +23,7 @@ public class AddNasInfoBO {
     private BigDecimal narsAvail;
 
     @ApiModelProperty("所属组")
-    private String group;
+    private String userGroup;
+    @ApiModelProperty("关联用户")
+    private Long linkUserId;
 }

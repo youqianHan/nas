@@ -7,8 +7,10 @@ import com.hyj.demo.bo.UpdateSysUserBO;
 import com.hyj.demo.common.RestResponse;
 import com.hyj.demo.dto.SysUserDTO;
 import com.hyj.demo.entity.SysUser;
+import com.hyj.demo.vo.SysUserSelectVO;
 import com.hyj.demo.vo.SysUserVO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +28,7 @@ public interface SysUserService {
     /**
      * 删除
      */
-    public RestResponse<String> delete(int id);
+    public RestResponse<String> delete(List<Integer> ids);
 
     /**
      * 更新
@@ -46,4 +48,5 @@ public interface SysUserService {
 
     IPage<SysUserVO> getUserPage(QuerySysUserBO querySysUserBO);
 
+    List<SysUserSelectVO> findUserList();
 }

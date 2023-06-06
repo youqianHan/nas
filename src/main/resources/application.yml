@@ -2,12 +2,13 @@ server:
   port: 8080
   servlet:
     context-path: /nasmonitor
-monitor: # 监控的目录列表，逗号分隔
-  directories: /data
+monitor: # 监控 每10分钟执行一次
+  job:
+    cron: 0 */10 * ? * *
 #    - /data/log
 #    - /data/
-  threshold: # 目录空间阀值，单位为字节（bytes）
-    size: 1000000000
+  threshold: # 目录空间阀值，单位为MB
+    size: 30
 swagger:
   enabled: true
 spring:
@@ -17,10 +18,13 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   mail: # 邮件配置
-    host: smtp.example.com
-    port: 587
-    username: your-email@example.com
-    password: your-password
+    host: smtp.163.com
+    port: 25
+    username: 15998451842@163.com
+    password: TAVVYMGPGGRWHGNX
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/nas_monitor?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
@@ -47,9 +51,11 @@ spring:
 #指定mybatis映射文件的地址
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com.hyj.demo.mapper: trace
 # Knife4j 配置
 knife4j:
   swagger-ui:

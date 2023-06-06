@@ -47,8 +47,15 @@ public class NasInfoDTO {
     private String updateBy;
 
     @ApiModelProperty("所属组")
-    private String group;
-
+    private String userGroup;
+    @ApiModelProperty("关联用户id")
+    private Integer linkUserId;
+    @ApiModelProperty("关联用户姓名")
+    private String linkUserName;
+    @ApiModelProperty("关联用户soeid")
+    private String linkUserSoeid;
+    @ApiModelProperty("关联用户email")
+    private String linkUserEmail;
 
 
 }

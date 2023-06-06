@@ -34,8 +34,18 @@ public interface SysUserNasService {
     public SysUserNas load(int id);
 
     /**
+     * 根据nas主键 id 查询
+     */
+    public SysUserNas loadByNasId(Long id);
+
+    /**
      * 分页查询
      */
     public Map<String,Object> pageList(int offset, int pagesize);
+
+    /**
+     * 根据nas主键 id 查询
+     */
+    public Boolean updateLinkUserByNasId(Long userId,Long nasId);
 
 }

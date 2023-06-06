@@ -1,16 +1,20 @@
-package com.hyj.demo.bo;
+package com.hyj.demo.bo.common;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
-@ApiModel("更新nas参数")
+@ApiModel("新增用户参数")
 @Data
-public class UpdateNasInfoBO {
-    @ApiModelProperty("id")
+public class QueryNasBO extends BaseBO {
+
+    @ApiModelProperty(value = "主键")
     private Long id;
+
     @ApiModelProperty("路径")
     private String narsPath;
 
@@ -23,8 +27,12 @@ public class UpdateNasInfoBO {
     @ApiModelProperty("可用空间")
     private BigDecimal narsAvail;
 
+    @ApiModelProperty("关联用户姓名")
+    private String linkUserName;
+    @ApiModelProperty("关联用户soeid")
+    private String linkUserSoeid;
+
     @ApiModelProperty("所属组")
     private String userGroup;
-    @ApiModelProperty("关联用户")
-    private Long linkUserId;
+
 }

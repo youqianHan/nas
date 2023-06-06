@@ -1,8 +1,10 @@
 package com.hyj.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -69,8 +71,20 @@ public class NasInfo implements Serializable {
     /**
      * 所属组
      */
-    private String group;
+    private String userGroup;
+    /**
+     * 关联用户id
+     */
+    @TableField(exist = false)
+    private Long linkUserId;
 
+    @TableField(exist = false)
+    private String linkUserName;
+
+    @TableField(exist = false)
+    private String linkUserSoeid;
+    @TableField(exist = false)
+    private String linkUserEmail;
     public NasInfo() {
     }
 
