@@ -4,7 +4,8 @@ server:
     context-path: /nasmonitor
 monitor: # 监控 每10分钟执行一次
   job:
-    cron: 0 */10 * ? * *
+    warning-email-cron: 0 */30 * ? * *
+    flush-size-cron: 0 */1 * ? * *
 #    - /data/log
 #    - /data/
   threshold: # 目录空间阀值，单位为MB

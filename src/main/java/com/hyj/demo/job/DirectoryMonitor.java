@@ -29,7 +29,7 @@ public class DirectoryMonitor {
 
 
 
-    @Scheduled(cron ="${monitor.job.cron}") // 每分钟执行一次监控任务
+    @Scheduled(cron ="${monitor.job.warning-email-cron}") // 每分钟执行一次监控任务
     public void monitorDirectoryUsage() {
         //查询出所有已关联用户的nas目录 (未关联用户的目录不需要监控)
         List<NasInfoDTO> nasList = nasInfoService.getNasList(new QueryNasBO());
