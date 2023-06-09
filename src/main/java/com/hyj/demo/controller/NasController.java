@@ -8,7 +8,9 @@ import com.hyj.demo.bo.common.QueryNasBO;
 import com.hyj.demo.common.RestResponse;
 import com.hyj.demo.dto.NasInfoDTO;
 import com.hyj.demo.dto.NasInfoDTO;
+import com.hyj.demo.entity.SendMailFlow;
 import com.hyj.demo.service.NasInfoService;
+import com.hyj.demo.service.SendMailFlowService;
 import com.hyj.demo.service.SysUserService;
 import com.hyj.demo.vo.NasInfoVO;
 import com.hyj.demo.vo.SysUserVO;
@@ -25,6 +27,7 @@ import java.util.List;
 @Api(tags = "nas管理")
 public class NasController {
     private final NasInfoService nasInfoService;
+    private final SendMailFlowService sendMailFlowService;
     /**
      * 查询
      */
@@ -62,5 +65,15 @@ public class NasController {
     @PostMapping("/findByPage")
     public RestResponse<IPage<NasInfoVO>> findByPage(@RequestBody QueryNasBO queryNasBO){
         return RestResponse.success(nasInfoService.getNasPage(queryNasBO));
+    }
+
+
+    /**
+     * 查询
+     */
+    @ApiOperation("分页查询用户")
+    @GetMapping("/sendemailflow")
+    public RestResponse<List<SendMailFlow>> findByPage(@RequestParam String soeId){
+        return RestResponse.success(sendMailFlowService.loadBySoeid(soeId));
     }
 }

@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -37,8 +34,18 @@ public class DirectorySizeFlushJob {
         //读取每个目录的当前已用空间
         for (NasInfo nasInfo : distinctNasInfos) {
             Long narsUsed = NasFileUtils.getDirectorySizeByFilePath(nasInfo.getNarsPath());//已用空间
-            Long narsAvail = (thresholdSize-narsUsed)>0?thresholdSize-narsUsed:0;//剩余空间
-            nasInfoService.update(new LambdaUpdateWrapper<NasInfo>().set(NasInfo::getNarsSize,thresholdSize).set(NasInfo::getNarsUsed,narsUsed)
+            Long thresholdSize_byte = NasFileUtils.convertMBtoBytes(thresholdSize);//统一转换为byte方便计算
+            Long narsAvail;
+            if(Objects.nonNull(nasInfo.getNarsSize())){
+                //取表里单独配置的阈值
+                narsAvail=(nasInfo.getNarsSize().longValue()-narsUsed)>0?nasInfo.getNarsSize().longValue()-narsUsed:0;//剩余空间
+            }else{
+                //取默认配置的阈值
+                narsAvail=(thresholdSize_byte-narsUsed)>0?thresholdSize_byte-narsUsed:0;//剩余空间
+            }
+            nasInfoService.update(new LambdaUpdateWrapper<NasInfo>()
+                    .set(Objects.isNull(nasInfo.getNarsSize()),NasInfo::getNarsSize,thresholdSize_byte)
+                    .set(NasInfo::getNarsUsed,narsUsed)
                     .set(NasInfo::getNarsAvail,narsAvail).eq(NasInfo::getNarsPath,nasInfo.getNarsPath()));
         }
 

@@ -1,5 +1,6 @@
 package com.hyj.demo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hyj.demo.vo.common.PageRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,10 +32,12 @@ public class SysUserVO{
 
     @ApiModelProperty("创建时间")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty("更新时间")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @ApiModelProperty("创建人")

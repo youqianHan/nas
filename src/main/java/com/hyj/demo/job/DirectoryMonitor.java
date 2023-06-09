@@ -5,6 +5,7 @@ import com.hyj.demo.common.entity.EmailInfo;
 import com.hyj.demo.dto.NasInfoDTO;
 import com.hyj.demo.handler.SendEmailHandler;
 import com.hyj.demo.service.impl.NasInfoServiceImpl;
+import com.hyj.demo.util.NasFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -29,7 +30,7 @@ public class DirectoryMonitor {
 
 
 
-    @Scheduled(cron ="${monitor.job.warning-email-cron}") // 每分钟执行一次监控任务
+//    @Scheduled(cron ="${monitor.job.warning-email-cron}") // 每分钟执行一次监控任务
     public void monitorDirectoryUsage() {
         //查询出所有已关联用户的nas目录 (未关联用户的目录不需要监控)
         List<NasInfoDTO> nasList = nasInfoService.getNasList(new QueryNasBO());
@@ -40,8 +41,7 @@ public class DirectoryMonitor {
 
         //遍历目录并监控
         nasInfoMap.forEach((filePath,v)->{
-            File directory = new File(filePath);
-            long directorySize = FileUtils.sizeOf(directory);
+            Long directorySize = NasFileUtils.getDirectorySizeByFilePath(filePath);
             long directoryMbSize = directorySize / (1024 * 1024);
             if (directoryMbSize > thresholdSize) {
                 //根据email去重
@@ -51,10 +51,10 @@ public class DirectoryMonitor {
                 for (NasInfoDTO distinctNasInfoDTO : distinctNasInfoDTOS) {
                     //构建邮件基础信息
                     EmailInfo emailInfo = EmailInfo.builder().emailAddress(distinctNasInfoDTO.getLinkUserEmail())
-                            .subject("空间超出阈值预警").username(distinctNasInfoDTO.getLinkUserName()).build();
+                            .subject("空间超出阈值预警").username(distinctNasInfoDTO.getLinkUserName()).soeid(distinctNasInfoDTO.getLinkUserSoeid()).build();
                     //发送邮件
                     log.info("{}空间超出阈值预警 sendWarningEmail",filePath);
-                    emailHandler.handler(filePath, directorySize,emailInfo );
+                    emailHandler.handler(filePath, NasFileUtils.convertMemory(directorySize),emailInfo );
                 }
 
             }

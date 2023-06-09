@@ -1,5 +1,9 @@
 package com.hyj.demo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hyj.demo.util.FileUnitConvert;
+import com.hyj.demo.util.NasFileUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,6 +36,7 @@ public class NasInfoVO {
 
     @ApiModelProperty("可用空间")
     private BigDecimal narsAvail;
+
     @ApiModelProperty("总空间")
     private String narsSizeStr;
 
@@ -40,8 +45,10 @@ public class NasInfoVO {
 
     @ApiModelProperty("可用空间")
     private String narsAvailStr;
+
     @ApiModelProperty("创建时间")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty("创建人")
@@ -49,6 +56,7 @@ public class NasInfoVO {
 
     @ApiModelProperty("更新时间")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @ApiModelProperty("更新人")
@@ -63,22 +71,24 @@ public class NasInfoVO {
     @ApiModelProperty("关联用户soeid")
     private String linkUserSoeid;
 
-
     public String getNarsSizeStr() {
         if(Objects.nonNull(narsSize)){
-            return String.valueOf(narsSize).concat("MB");
+            return NasFileUtils.convertMemory(narsSize.longValue());
         }
         return narsSizeStr;
     }
 
     public String getNarsUsedStr() {
-        if(Objects.nonNull(narsSize)){
-            return String.valueOf(narsSize).concat("MB");
+        if(Objects.nonNull(narsUsed)){
+            return NasFileUtils.convertMemory(narsUsed.longValue());
         }
         return narsUsedStr;
     }
 
     public String getNarsAvailStr() {
+        if(Objects.nonNull(narsAvail)){
+            return NasFileUtils.convertMemory(narsAvail.longValue());
+        }
         return narsAvailStr;
     }
 }

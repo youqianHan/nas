@@ -21,6 +21,7 @@ import com.hyj.demo.entity.SysUserNas;
 import com.hyj.demo.mapper.NasInfoMapper;
 import com.hyj.demo.service.NasInfoService;
 import com.hyj.demo.service.SysUserNasService;
+import com.hyj.demo.util.NasFileUtils;
 import com.hyj.demo.vo.NasInfoVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -113,8 +114,15 @@ public class NasInfoServiceImpl extends ServiceImpl<NasInfoMapper,NasInfo> imple
                                               .selectAs(SysUser::getId,"linkUserId")
                                               .selectAs(SysUser::getUserName,"linkUserName")
                                               .selectAs(SysUser::getSoeid,"linkUserSoeid"));
+
         IPage<NasInfoVO> sysUserVOIPage = new Page<>();
         BeanUtil.copyProperties(iPage, sysUserVOIPage);
+        sysUserVOIPage.setRecords(BeanUtil.copyToList(iPage.getRecords(),NasInfoVO.class));
+//        for (NasInfoVO record : sysUserVOIPage.getRecords()) {
+//            record.setNarsSizeStr(NasFileUtils.convertMemory(record.getNarsSize().longValue()));
+//            record.setNarsAvailStr(NasFileUtils.convertMemory(record.getNarsAvail().longValue()));
+//            record.setNarsUsedStr(NasFileUtils.convertMemory(record.getNarsUsed().longValue()));
+//        }
         return sysUserVOIPage;
     }
 

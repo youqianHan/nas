@@ -1,6 +1,8 @@
 package com.hyj.demo.handler;
 
 import com.hyj.demo.common.entity.EmailInfo;
+import com.hyj.demo.entity.SendMailFlow;
+import com.hyj.demo.service.SendMailFlowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,15 +22,16 @@ public class SendEmailHandler implements EmailHandler{
     @Value("${spring.mail.username}")
     private String username;
     private final JavaMailSender mailSender;
+    private final SendMailFlowService sendMailFlowService;
 
     @Override
-    public void handler(String directoryPath, long directorySize, EmailInfo emailInfo) {
+    public void handler(String directoryPath, String directorySize, EmailInfo emailInfo) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
         List<String> exceedingFiles = new ArrayList<>();
 
         for (File file : files) {
-            if (file.isFile() && file.length() > thresholdSize) {
+            if (file.isFile()) {
                 exceedingFiles.add(file.getName());
             }
         }
@@ -45,5 +48,9 @@ public class SendEmailHandler implements EmailHandler{
                 "超过阀值的文件列表:\n" + String.join("\n", exceedingFiles));
 
         mailSender.send(message);
+        //记录发送流水
+        SendMailFlow sendMailFlow = SendMailFlow.builder().sendTo(emailInfo.getEmailAddress()).sendType("1")//不知道弄个什么type
+                .subject(emailInfo.getSubject()).soeid(emailInfo.getSoeid()).content(message.getText()).build();
+        sendMailFlowService.insert(sendMailFlow);
     }
 }
