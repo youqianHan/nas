@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyj.demo.mapper.NasInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.hyj.demo.entity.NasInfo" >
+        <result column="id" property="id" />
+        <result column="nars_path" property="narsPath" />
+        <result column="nars_size" property="narsSize" />
+        <result column="nars_used" property="narsUsed" />
+        <result column="nars_avail" property="narsAvail" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="user_group" property="userGroup" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                nars_path,
+                nars_size,
+                nars_used,
+                nars_avail,
+                create_time,
+                create_by,
+                update_time,
+                update_by,
+                user_group
+    </sql>
+    <sql id="nas_info_Where_List">
+        <where>
+            <if test ='null != id and id!= "" '>
+                AND  id = #{id}
+            </if>
+            <if test ='null != narsPath and narsPath!= "" '>
+                AND  nars_path like CONCAT('%',#{narsPath},'%')
+            </if>
+            <if test ='null != narsSize and narsSize!= "" '>
+                AND  nars_size = #{narsSize}
+            </if>
+            <if test ='null != narsUsed and narsUsed!= "" '>
+                AND  nars_used = #{narsUsed}
+            </if>
+            <if test ='null != narsAvail and narsAvail!= "" '>
+                AND  nars_avail = #{narsAvail}
+            </if>
+            <if test ='null != createTime and createTime!= "" '>
+                AND  create_time = #{createTime}
+            </if>
+            <if test ='null != createBy and createBy!= "" '>
+                AND  create_by like CONCAT('%',#{createBy},'%')
+            </if>
+            <if test ='null != updateTime and updateTime!= "" '>
+                AND  update_time = #{updateTime}
+            </if>
+            <if test ='null != updateBy and updateBy!= "" '>
+                AND  update_by like CONCAT('%',#{updateBy},'%')
+            </if>
+            <if test ='null != user_group and user_group!= "" '>
+                AND  user_group like CONCAT('%',#{user_group},'%')
+            </if>
+        </where>
+    </sql>
+    <insert id="insertNasInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.hyj.demo.entity.NasInfo">
+        INSERT INTO nas_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != narsPath and narsPath!= "" '>
+                nars_path,
+            </if>
+            <if test ='null != narsSize and narsSize!= "" '>
+                nars_size,
+            </if>
+            <if test ='null != narsUsed and narsUsed!= "" '>
+                nars_used,
+            </if>
+            <if test ='null != narsAvail and narsAvail!= "" '>
+                nars_avail,
+            </if>
+            <if test ='null != createTime and createTime!= "" '>
+                create_time,
+            </if>
+            <if test ='null != createBy and createBy!= "" '>
+                create_by,
+            </if>
+            <if test ='null != updateTime and updateTime!= "" '>
+                update_time,
+            </if>
+            <if test ='null != updateBy and updateBy!= "" '>
+                update_by,
+            </if>
+            <if test ='null != user_group and user_group!= "" '>
+                user_group
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test ='null != narsPath and narsPath!="" '>
+                #{narsPath},
+            </if>
+            <if test ='null != narsSize and narsSize!="" '>
+                #{narsSize},
+            </if>
+            <if test ='null != narsUsed and narsUsed!="" '>
+                #{narsUsed},
+            </if>
+            <if test ='null != narsAvail and narsAvail!="" '>
+                #{narsAvail},
+            </if>
+            <if test ='null != createTime and createTime!="" '>
+                #{createTime},
+            </if>
+            <if test ='null != createBy and createBy!="" '>
+                #{createBy},
+            </if>
+            <if test ='null != updateTime and updateTime!="" '>
+                #{updateTime},
+            </if>
+            <if test ='null != updateBy and updateBy!="" '>
+                #{updateBy},
+            </if>
+            <if test ='null != user_group and user_group!="" '>
+                #{user_group}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteNasInfo" >
+        DELETE FROM nas_info
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateNasInfo" parameterType="com.hyj.demo.entity.NasInfo">
+        UPDATE nas_info
+        <set>
+            <if test ='null != narsPath and  narsPath!="" '>nars_path = #{narsPath},</if>
+            <if test ='null != narsSize and  narsSize!="" '>nars_size = #{narsSize},</if>
+            <if test ='null != narsUsed and  narsUsed!="" '>nars_used = #{narsUsed},</if>
+            <if test ='null != narsAvail and  narsAvail!="" '>nars_avail = #{narsAvail},</if>
+            <if test ='null != createTime and  createTime!="" '>create_time = #{createTime},</if>
+            <if test ='null != createBy and  createBy!="" '>create_by = #{createBy},</if>
+            <if test ='null != updateTime and  updateTime!="" '>update_time = #{updateTime},</if>
+            <if test ='null != updateBy and  updateBy!="" '>update_by = #{updateBy},</if>
+            <if test ='null != user_group and  user_group!="" '>user_group = #{user_group}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="loadNasInfo" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM nas_info
+        WHERE id = #{id}
+    </select>
+
+    <select id="pageListNasInfo" parameterType="map" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM nas_info
+        <include refid="nas_info_Where_List" />
+        <if test="PRIMARYNO!= null">
+            order by PRIMARYNO desc
+        </if>
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCountNasInfo" parameterType="map" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM nas_info
+        <include refid="nas_info_Where_List" />
+    </select>
+
+</mapper>
