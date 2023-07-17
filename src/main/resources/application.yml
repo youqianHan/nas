@@ -2,7 +2,6 @@ server:
   port: 8080
   servlet:
     context-path: /nasmonitor
-
 monitor: # 监控 每10分钟执行一次
   job:
     warning-email-cron: 0 */30 * ? * *
@@ -16,10 +15,10 @@ swagger:
 spring:
   application:
       name: nas-monitor
-  mvc:
-    static-path-pattern: classpath:static/*
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
+#  mvc:
+#    static-path-pattern: classpath:static/*
+#    pathmatch:
+#      matching-strategy: ANT_PATH_MATCHER
   mail: # 邮件配置
     host: smtp.163.com
     port: 25
